@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export function HomeTempleates() {
+export function HomeTempleate() {
   return (
     <Container>
       <h1>Menu Home</h1>

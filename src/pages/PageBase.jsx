@@ -1,5 +1,5 @@
 import { HomeTempleate } from '../components/templeates/HomeTempleate';
-export function Home() {
+export function PageBase() {
     return (
         <HomeTempleate/>
     );

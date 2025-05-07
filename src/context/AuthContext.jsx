@@ -1,31 +1,30 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../index"; // Asegúrate de que esto está bien importado
 
-const AutheContext = createContext();
+const AutheContext = createContext(null);
 
 export const AutheContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
-    // Obtener sesión actual
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
+    const { data: AuthListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (session?.user == null) {
+          setUser(null);
+        } else {
+          setUser(session?.user);
+        }
+      }
+    );
 
-    // Escuchar cambios de sesión
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-    // Limpiar el listener al desmontar
     return () => {
-      authListener.subscription.unsubscribe(); // CORREGIDO: esto cancela la suscripción
+      AuthListener.subscription;
     };
   }, []);
 
   return (
-    <AutheContext.Provider value={user}>
+    <AutheContext.Provider value={{user}}>
       {children}
-      
     </AutheContext.Provider>
   );
 };
