@@ -1,7 +1,7 @@
-import { LoginThempleate } from '../components/templeates/LoginThempleate'
+import { LoginTempleate } from '../index'
 
 export function Login() {
     return (
-        <LoginThempleate/>
+        <LoginTempleate/>
     );
 }

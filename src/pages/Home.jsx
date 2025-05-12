@@ -1,4 +1,5 @@
-import { HomeTempleate } from '../components/templeates/HomeTempleate';
+import { HomeTempleate } from '../index';
+
 export function Home() {
     return (
         <HomeTempleate/>

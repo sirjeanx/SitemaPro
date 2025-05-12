@@ -1,20 +1,22 @@
 import { create } from "zustand";
-import {InsertUser} from "../supabase/crudUser";
+import {InsertUser,supabase} from "../index";
 
-export const useUserStore = create((set, get) => ({
-insertarUserAdmin: async (p) => {
+export const useUsersStore = create((set, get) => ({
+insertUserAdmin: async (p) => {
     const {data,error} =   await supabase.auth.signUp({
         email: p.email,
         password: p.password,
     });
-    if(error)return null;
-    await InsertUser(
+    console.log("data user auth",data);
+    if(error)return;
+   const datauser= await InsertUser(
         {
             idauth: data.user.id,
             datereg: new Date(),
-            typeuser: "admin"
+            typeuser: "admin",
         }
-    )
+    );
+    return datauser;
 },
 
 }));    

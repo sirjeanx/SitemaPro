@@ -6,7 +6,7 @@ export * from './components/organismos/sidebar/Sidebar';
 export * from './components/organismos/sidebar/SidebarCard';
 export * from './components/organismos/ToggleTheme';
 export * from './components/templeates/HomeTempleate';
-export * from './components/templeates/LoginThempleate';
+export * from './components/templeates/LoginTempleate';
 export * from './context/AuthContext';
 export * from './hooks/ProtecteRoute';
 export * from './index';

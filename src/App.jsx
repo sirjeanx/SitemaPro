@@ -1,49 +1,49 @@
-import { useState } from 'react'
-import { AutheContextProvider,Light,Dark, Sidebar } from "./index"
-import { MyRoutes } from './routes/routes'
-import styled, { ThemeProvider } from 'styled-components'
-import { createContext } from 'react'
-import { Device } from './index'
-import { MenuNavbar } from './components/organismos/MenuNavbar'
+import { useState } from "react";
+import { AutheContextProvider, Light, Dark, Sidebar } from "./index";
+import { MyRoutes } from "./routes/routes";
+import styled, { ThemeProvider } from "styled-components";
+import { createContext } from "react";
+import { Device } from "./index";
+import { MenuNavbar } from "./components/organismos/MenuNavbar";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 export const ThemeContext = createContext(null);
 
-
-
 function App() {
-
   const [themeuse, setTheme] = useState("dark");
-  const  theme = themeuse === "light" ? "light" : "dark";
-  const themeStyle = themeuse === "light" ? Light: Dark;
+  const theme = themeuse === "light" ? "light" : "dark";
+  const themeStyle = themeuse === "light" ? Light : Dark;
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-  <> 
-    <ThemeContext.Provider value={{theme,setTheme}}>
-      <ThemeProvider theme={themeStyle}>
-    <AutheContextProvider>
-      <Contenier className={sidebarOpen?"active":""}>
-        <section className='ContentSidebar'>
-      <Sidebar state={sidebarOpen} setState={()=>setSidebarOpen(!sidebarOpen)}/>
-        </section>
-        <section className='ContentMenu'>
-      <MenuNavbar>
-        
-      </MenuNavbar>
-        </section>
-        <section className='ContentRoutes'>
-        <MyRoutes/>
-        </section>
-      </Contenier>
-    </AutheContextProvider>
-      </ThemeProvider>
-    </ThemeContext.Provider>
-  </>
-  )
+    <>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <ThemeProvider theme={themeStyle}>
+          <AutheContextProvider>
+            <Contenier className={sidebarOpen ? "active" : ""}>
+              <section className="ContentSidebar">
+                <Sidebar
+                  state={sidebarOpen}
+                  setState={() => setSidebarOpen(!sidebarOpen)}
+                />
+              </section>
+              <section className="ContentMenu">
+                <MenuNavbar></MenuNavbar>
+              </section>
+              <section className="ContentRoutes">
+                <MyRoutes />
+              </section>
+            </Contenier>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </AutheContextProvider>
+        </ThemeProvider>
+      </ThemeContext.Provider>
+    </>
+  );
 }
-const Contenier  = styled.main`
+const Contenier = styled.main`
 display: grid;
 grid-template-columns: 1fr;
-background-color: ${({theme}) => theme.bgtotal};
+background-color: ${({ theme }) => theme.bgtotal};
 .ContentSidebar{
 display: none;
 }
