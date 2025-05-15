@@ -10,7 +10,7 @@ export function LoginTempleate() {
         mutationKey: ["inserta User Admin"],   
         mutationFn: async() => {
             const p = {
-                email :"prueba8@gmail.com",
+                email :"prueba13@gmail.com",
                 password : "123456",
             };
          const dt=   await insertUserAdmin(p);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AutheContextProvider, Light, Dark, Sidebar } from "./index";
+import { AuthContextProvider, Light, Dark, Sidebar } from "./index";
 import { MyRoutes } from "./routes/routes";
 import styled, { ThemeProvider } from "styled-components";
 import { createContext } from "react";
@@ -18,7 +18,7 @@ function App() {
     <>
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <ThemeProvider theme={themeStyle}>
-          <AutheContextProvider>
+          <AuthContextProvider>
             <Contenier className={sidebarOpen ? "active" : ""}>
               <section className="ContentSidebar">
                 <Sidebar
@@ -34,7 +34,7 @@ function App() {
               </section>
             </Contenier>
             <ReactQueryDevtools initialIsOpen={false} />
-          </AutheContextProvider>
+          </AuthContextProvider>
         </ThemeProvider>
       </ThemeContext.Provider>
     </>
