@@ -1,7 +1,7 @@
-import { LoginTempleate } from '../index'
+import { LoginTemplate } from '../index'
 
 export function Login() {
     return (
-        <LoginTempleate/>
+        <LoginTemplate/>
     );
 }

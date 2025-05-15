@@ -1,7 +1,7 @@
-import { HomeTempleate } from '../index';
+import { HomeTemplate } from '../index';
 
 export function Home() {
     return (
-        <HomeTempleate/>
+        <HomeTemplate/>
     );
 }

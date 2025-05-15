@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { AuthContextProvider, Light, Dark, Sidebar } from "./index";
+import { AuthContextProvider, Light, Dark, Sidebar, Login } from "./index";
 import { MyRoutes } from "./routes/routes";
 import styled, { ThemeProvider } from "styled-components";
 import { createContext } from "react";
 import { Device } from "./index";
 import { MenuNavbar } from "./components/organismos/MenuNavbar";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useLocation } from "react-router-dom";
+
 export const ThemeContext = createContext(null);
 
 function App() {
@@ -13,26 +15,31 @@ function App() {
   const theme = themeuse === "light" ? "light" : "dark";
   const themeStyle = themeuse === "light" ? Light : Dark;
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const { pathname } = useLocation();
   return (
     <>
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <ThemeProvider theme={themeStyle}>
           <AuthContextProvider>
-            <Contenier className={sidebarOpen ? "active" : ""}>
-              <section className="ContentSidebar">
-                <Sidebar
-                  state={sidebarOpen}
-                  setState={() => setSidebarOpen(!sidebarOpen)}
-                />
-              </section>
-              <section className="ContentMenu">
-                <MenuNavbar></MenuNavbar>
-              </section>
-              <section className="ContentRoutes">
-                <MyRoutes />
-              </section>
-            </Contenier>
+            {pathname == "/login" ? (
+              <Login />
+            ) : (
+              <Contenier className={sidebarOpen ? "active" : ""}>
+                <section className="ContentSidebar">
+                  <Sidebar
+                    state={sidebarOpen}
+                    setState={() => setSidebarOpen(!sidebarOpen)}
+                  />
+                </section>
+                <section className="ContentMenu">
+                  <MenuNavbar></MenuNavbar>
+                </section>
+                <section className="ContentRoutes">
+                  <MyRoutes />
+                </section>
+              </Contenier>
+            )}
+
             <ReactQueryDevtools initialIsOpen={false} />
           </AuthContextProvider>
         </ThemeProvider>

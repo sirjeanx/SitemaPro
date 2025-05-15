@@ -1,6 +1,6 @@
-import { HomeTempleate } from '../components/templeates/HomeTempleate';
+import { HomeTemplate } from '../components/templetes/HomeTemplate';
 export function PageBase() {
     return (
-        <HomeTempleate/>
+        <HomeTemplate/>
     );
 }
