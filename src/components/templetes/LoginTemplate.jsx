@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Btnsave, v, useAuthStore, InputText, FooterLogin } from "../../index";
+import { Btnsave, v, useAuthStore, InputText, FooterLogin, RegistrarAdmin } from "../../index";
 import { Device } from "../../styles/breackpoints";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,7 @@ export function LoginTemplate() {
     <Container>
       <div className="contentLogo">
         <img src={logo}></img>
-        <span>StockPRO</span>
+        <span>Inventario PRO</span>
       </div>
       <div className="bannerlateral">
         <img src={carrito}></img>
@@ -45,9 +45,12 @@ export function LoginTemplate() {
 
       <div className="contentCard">
         <div className="card">
-          <Titulo>StockPRO</Titulo>
+          {
+            state && <RegistrarAdmin setState={(setState)=>(!state)}/>
+          }
+          <Titulo>Invetario PRO</Titulo>
           {stateInicio && (
-            <TextoStateInicio>datos incorrectos</TextoStateInicio>
+            <TextoStateInicio>DATOS INCORRECTOS</TextoStateInicio>
           )}
           <span className="ayuda">
             {" "}
@@ -65,19 +68,19 @@ export function LoginTemplate() {
                   required: true,
                 })}
               />
-              <label className="form__label">email</label>
+              <label className="form__label">Email : </label>
               {errors.correo?.type === "required" && <p>Campo requerido</p>}
             </InputText>
             <InputText icono={<v.iconopass />}>
               <input
                 className="form__field"
                 type="password"
-                placeholder="contraseña"
+                placeholder="pass"
                 {...register("pass", {
                   required: true,
                 })}
               />
-              <label className="form__label">pass</label>
+              <label className="form__label">Contraseña : </label>
               {errors.pass?.type === "required" && <p>Campo requerido</p>}
             </InputText>
             <ContainerBtn>

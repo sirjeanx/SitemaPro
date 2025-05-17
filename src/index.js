@@ -2,6 +2,7 @@ export * from './App';
 export * from './components/atomos/Icono';
 export * from './components/moleculas/Btnsave';
 export * from './components/organismos/formularios/InputText';
+export * from './components/organismos/formularios/RegistrarAdmin.jsx';
 export * from './components/organismos/MenuNavbar';
 export * from './components/organismos/sidebar/FooterLogin';
 export * from './components/organismos/sidebar/Sidebar';

@@ -4,8 +4,8 @@ import {InsertUser,supabase} from "../index";
 export const useUsersStore = create((set, get) => ({
 insertUserAdmin: async (p) => {
     const {data,error} =   await supabase.auth.signUp({
-        email: p.email,
-        password: p.password,
+        email: p.correo,
+        password: p.pass,
     });
     console.log("data user auth",data);
     if(error)return;
