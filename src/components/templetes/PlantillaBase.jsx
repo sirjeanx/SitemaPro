@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Header } from "../organismos/Header";
 
-export function HomeTemplate() {
+export function PlantillaBase() {
 const [state, setState] = useState(false);
   return (
     <Container>

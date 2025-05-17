@@ -8,10 +8,16 @@ import carrito from "../../assets/carrito.svg";
 import logo from "../../assets/inventarioslogo.png";
 import { MdOutlineInfo } from "react-icons/md";
 import { ThemeContext } from "../../App";
+import { useEffect } from "react";
 
 export function LoginTemplate() {
+
   const { setTheme } = useContext(ThemeContext);
+
+useEffect(() => {
   setTheme("light");
+}, [setTheme]);
+
   const { signInWithEmail } = useAuthStore();
   const [state, setState] = useState(false);
   const [stateInicio, setStateInicio] = useState(false);
