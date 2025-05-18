@@ -1,5 +1,6 @@
 export * from './App';
 export * from './components/atomos/Icono';
+export * from './components/atomos/Title';
 export * from './components/moleculas/BtnCircular';
 export * from './components/moleculas/Btnsave';
 export * from './components/organismos/formularios/InputText';
@@ -13,6 +14,7 @@ export * from './components/organismos/sidebar/SidebarCard';
 export * from './components/organismos/ToggleTheme';
 export * from './components/templetes/HomeTemplate';
 export * from './components/templetes/LoginTemplate';
+export * from './components/templetes/PlantillaBase';
 export * from './context/AuthContext';
 export * from './hooks/ProtecteRoute';
 export * from './index';

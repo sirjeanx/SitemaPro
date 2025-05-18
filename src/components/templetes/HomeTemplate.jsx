@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Header } from "../organismos/Header";
+import { Header, Title } from "../../index";
 
 export function HomeTemplate() {
 const [state, setState] = useState(false);
@@ -11,7 +11,7 @@ const [state, setState] = useState(false);
         setState(!state) }}/>
       </header>
       <section className="section1">
-
+        <Title>Tu Empresa</Title>
       </section>
       <section className="section2">
 
@@ -44,9 +44,10 @@ grid-template-areas:
   }
   .section1{
   grid-area: section1;
-  background-color: #ffffff;
+  background-color:rgb(20, 173, 173);
     display: flex;
   align-items: center;
+  justify-content: end;
   }
   .section2{
   grid-area: section2;

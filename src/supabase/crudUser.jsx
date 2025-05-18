@@ -3,7 +3,7 @@ import {supabase} from "../index"
 
 export const InsertUser = async (p) => {
   const {data,error } = await supabase.from 
-  ("Users").insert(p).select().maybeSingle();
+  ("users").insert(p).select().maybeSingle();
   if (error) {
     Swal.fire({
       icon: "error",
