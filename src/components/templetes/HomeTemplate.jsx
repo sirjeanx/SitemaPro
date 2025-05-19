@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Header, Title } from "../../index";
+import { Header, Title,Bannerempresa } from "../../index";
 
 export function HomeTemplate() {
 const [state, setState] = useState(false);
@@ -13,11 +13,8 @@ const [state, setState] = useState(false);
       <section className="section1">
         <Title>Tu Empresa</Title>
       </section>
-      <section className="section2">
-
-      </section>
       <section className="main">
-
+        <Bannerempresa />
       </section>
     </Container>
   );
@@ -30,11 +27,10 @@ const Container = styled.div`
   color: ${({ theme }) => theme.text};
   display: grid;
   padding :15px;
-grid-template-rows: 100px 100px 100px auto;
+grid-template-rows: 100px 100px auto;
 grid-template-areas:
   "header"
   "section1"
-  "section2"
   "main";
   .header{
   grid-area: header;
@@ -48,12 +44,6 @@ grid-template-areas:
     display: flex;
   align-items: center;
   justify-content: end;
-  }
-  .section2{
-  grid-area: section2;
-  background-color: #000000;
-    display: flex;
-  align-items: center;
   }
   .main{
   grid-area: main;

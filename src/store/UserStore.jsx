@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import {InsertUser,supabase} from "../index";
+import {InsertUser,MostrarUser,supabase} from "../index";
 
 export const useUsersStore = create((set, get) => ({
 insertUserAdmin: async (p) => {
@@ -7,7 +7,6 @@ insertUserAdmin: async (p) => {
         email: p.correo,
         password: p.pass,
     });
-    console.log("data user auth",data);
     if(error)return;
    const datauser= await InsertUser(
         {
@@ -17,6 +16,12 @@ insertUserAdmin: async (p) => {
         }
     );
     return datauser;
+},
+iduser:0,
+mostrarUser: async () => {
+    const response = await MostrarUser();
+    set({iduser: response.id});
+    return response;
 },
 
 }));    
