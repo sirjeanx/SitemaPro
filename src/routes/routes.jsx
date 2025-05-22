@@ -6,20 +6,32 @@ import {
   useUsersStore,
   ProtectedRoute,
   SpinnerLoader,
-  ErrorMolecula
+  ErrorMolecula,
+  useEmpresaStore,
 } from "../index.js";
 import { useQuery } from "@tanstack/react-query";
 
 export function MyRoutes() {
   const { user } = UserAuth();
-  const { mostrarUser } = useUsersStore();
-  const { data, isLoading, error } = useQuery({
+  const { mostrarUser, iduser } = useUsersStore();
+  const { mostrarEmpresa } = useEmpresaStore();
+  const {
+    data: datauser,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["Mostrar Usuario"],
     queryFn: mostrarUser,
   });
-  if (isLoading) return <SpinnerLoader/>;
-  if(error) {
-    return <ErrorMolecula message={error.message}/>;
+
+  const { data: dataempresa } = useQuery({
+    queryKey: ["Mostrar Empresa"],
+    queryFn: () => mostrarEmpresa({ iduser: iduser }),
+    enabled: !!datauser,
+  });
+  if (isLoading) return <SpinnerLoader />;
+  if (error) {
+    return <ErrorMolecula message={error.message} />;
   }
 
   return (

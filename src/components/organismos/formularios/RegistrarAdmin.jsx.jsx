@@ -59,7 +59,7 @@ export function RegistrarAdmin({ setState }) {
                     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
                   })}
                 />
-                <label className="form__label">email</label>
+                <label className="form__label">Email</label>
                 {errors.correo?.type === "pattern" && (
                   <p>El formato del email es incorrecto</p>
                 )}
@@ -76,7 +76,7 @@ export function RegistrarAdmin({ setState }) {
                     required: true,
                   })}
                 />
-                <label className="form__label">pass</label>
+                <label className="form__label">Contraseña</label>
                 {errors.pass?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
