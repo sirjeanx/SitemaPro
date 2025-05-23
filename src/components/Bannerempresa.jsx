@@ -1,22 +1,24 @@
 import styled from "styled-components";
-import { CardDatosEmpresa, v } from "../index";
+import { CardDatosEmpresa, useEmpresaStore, v } from "../index";
 
 export function Bannerempresa() {
+  const {dataempresa,contarusersXempresas}= useEmpresaStore();
+  
   return (
     <>
       <Container>
         <div className="content-wrapper-context">
           <span className="title">
             {<v.iconoempresa />}
-            Nombre de la empresa
+            {dataempresa?.empresa?.nombre}
           </span>
           <div className="content-text">
             Inverario pro te mantiene siempre informado de las novedades de tu
             empresa,
           </div>
           <ContentCards>
-            <CardDatosEmpresa title="Moneda" value="S/." />
-            <CardDatosEmpresa title="Usuarios" value="100+" />
+            <CardDatosEmpresa title="Moneda" value={dataempresa?.empresa?.simbolomoneda} />
+            <CardDatosEmpresa title="Usuarios" value={dataempresa.empresa?.id} />
           </ContentCards>
         </div>
 

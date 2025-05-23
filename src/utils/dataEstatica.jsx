@@ -26,7 +26,7 @@ export const LinksArray = [
     {
       label: "Home",
       icon: <AiOutlineHome />,
-      to: "/",
+      to: "/inicio",
     },
     {
       label: "Kardex",
