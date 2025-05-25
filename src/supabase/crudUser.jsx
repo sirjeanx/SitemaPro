@@ -8,7 +8,7 @@ export const InsertUser = async (p) => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text:"Error inserting user"+ error.message,
+      text:"Error inserta usuario"+ error.message,
     });
   }
   if(data) return data;

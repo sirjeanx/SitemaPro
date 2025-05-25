@@ -9,6 +9,8 @@ import {
   ErrorMolecula,
   useEmpresaStore,
   Configuracion,
+  MarcaTemplate,
+  Marca,
 } from "../index.js";
 import { useQuery } from "@tanstack/react-query";
 
@@ -39,8 +41,9 @@ export function MyRoutes() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route element={<ProtectedRoute user={user} redirectTo="/login" />}>
-        <Route path="/inicio" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/configurar" element={<Configuracion />} />
+        <Route path="/configurar/marca" element={<Marca />} />
       </Route>
     </Routes>
   );

@@ -11,7 +11,7 @@ export function ConfiguracionTemplate() {
       <div id="cards">
         {DataModulosConfiguracion.map((item, index) => {
           return (
-            <Link to={item.state?item.link:""} className={item.state?"card": "card false"} key={index}>
+            <Link to={item.link} className={item.state?"card": "card false"} key={index}>
 
             
               <div className="card-content">

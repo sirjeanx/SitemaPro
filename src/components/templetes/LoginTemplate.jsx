@@ -33,7 +33,7 @@ useEffect(() => {
       pass: data.pass,
     });
     if (response) {
-      navigate("/inicio");
+      navigate("/");
     } else {
       setStateInicio(true);
     }
