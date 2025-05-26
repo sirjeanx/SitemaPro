@@ -1,11 +1,20 @@
 import styled from "styled-components";
 import { useState} from "react";
-import { Header } from "../../index";
+import { Header,TablaMarca,RegistrarMarca } from "../../index";
 
-export function MarcaTemplate() {
+export function MarcaTemplate({data}) {
 const [state, setState] = useState(false);
+const [dataSelect,setDataSelect]=useState([]);
+const [accion,setAccion]=useState("");
+const [openRegistro,SetopenRegistro]= useState(false);
   return (
     <Container>
+      {
+        openRegistro &&
+      <RegistrarMarca dataSelect={dataSelect} accion={accion}
+      onClose={()=>SetopenRegistro(!openRegistro)}
+      />
+      }
       <header className="header" >  
       <Header stateConfig={{ state, setState:()=> 
         setState(!state) }}/>
@@ -14,9 +23,9 @@ const [state, setState] = useState(false);
 
       </section>
       <section className="section2">
-
       </section>
       <section className="main">
+        <TablaMarca data={data}/>
 
       </section>
     </Container>
@@ -58,7 +67,6 @@ grid-template-areas:
   grid-area: main;
   background-color: #ff8900;
     display: flex;
-  align-items: center;
   
   }
 `;
