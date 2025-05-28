@@ -47,7 +47,7 @@ const Container = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.bgtotal};
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   justify-content: center;
   overflow-y: auto;
   overflow-x: hidden;

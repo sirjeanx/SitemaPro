@@ -7,12 +7,12 @@ import {
   getSortedRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { AccionesTabla, useMarcaStore, v, Paginacion } from "../../../index";
+import { AccionesTabla, v, Paginacion, useCategoriasStore } from "../../../index";
 import Swal from "sweetalert2";
 import { FaArrowsAltV } from "react-icons/fa";
 import { useState } from "react";
 
-export function TablaMarca({
+export function TablaCategorias({
   data,
   SetopenRegistro,
   setDataSelect,
@@ -23,9 +23,9 @@ export function TablaMarca({
   const [datas, setData] = useState(data);
   const [columnFilters, setColumnFilters] = useState([]);
 
-  const { eliminarMarca } = useMarcaStore();
+  const { eliminarcategorias } = useCategoriasStore();
   const editar = (data) => {
-    if (data.descripcion === "Generica") {
+    if (data.descripcion === "General") {
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -38,7 +38,7 @@ export function TablaMarca({
     setAccion("Editar");
   };
   const eliminar = (p) => {
-    if (p.descripcion === "Generica") {
+    if (p.descripcion === "General") {
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -56,7 +56,7 @@ export function TablaMarca({
       confirmButtonText: "¡Sí, eliminar!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await eliminarMarca({ id: p.id });
+        await eliminarcategorias({ id: p.id });
       }
     });
   };
@@ -67,7 +67,16 @@ export function TablaMarca({
       cell: (info) => (
         <div data-title="Descripcion" className="ContentCell">
           <span>{info.getValue()}</span>
-        </div>
+         </div> 
+      ),
+    },
+        {
+      accessorKey: "color",
+      header: "Color",
+      cell: (info) => (
+        <div data-title="Color" className="ContentCell">
+          <Colorcontent $color={info.getValue()} $alto="25px" $ancho="25px"/>
+         </div> 
       ),
     },
     {
