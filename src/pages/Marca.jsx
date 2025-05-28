@@ -7,28 +7,32 @@ import {
 } from "../index";
 
 export function Marca() {
-  const { mostrarMarca, datamarca, buscarMarca, buscador } = useMarcaStore();
+  const { mostrarMarca, datamarca, buscarMarca } = useMarcaStore();
+  const { buscador } = useMarcaStore();
   const { dataempresa } = useEmpresaStore();
-  const { isLoading, error } = useQuery({
-    queryKey: ["mostrar marca", { id_empresa: dataempresa.empresa?.id }],
-    queryFn: () => mostrarMarca({ id_empresa: dataempresa.empresa?.id  }),
-    enabled: dataempresa.empresa?.id  != null,
-  });
-  const { data: buscardata } = useQuery({
-    queryKey: [
-      "buscar marca",
-      { id_empresa: dataempresa.id, descripcion: buscador },
-    ],
-    queryFn: () =>
-      buscarMarca({ id_empresa: dataempresa.id, descripcion: buscador }),
+  //mostrar data
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["mostrar marcas", dataempresa.id],
+    queryFn: () => mostrarMarca({ id_empresa: dataempresa.id }),
     enabled: dataempresa.id != null,
   });
+  //buscador
+  const { data: buscar } = useQuery({
+    queryKey: ["buscar marcas", buscador],
+    queryFn: () =>
+      buscarMarca({ descripcion: buscador, id_empresa: dataempresa.id }),
+    enabled: !!buscador && dataempresa.id != null,
+  });
+  //respuestas 
   if (isLoading) {
     return <SpinnerLoader />;
   }
   if (error) {
     return <span>Error...</span>;
   }
-
-  return <MarcaTemplate data={datamarca}/>;
+  return (
+    <>
+      <MarcaTemplate data={datamarca} />
+    </>
+  );
 }

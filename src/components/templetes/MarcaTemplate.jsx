@@ -1,32 +1,61 @@
 import styled from "styled-components";
-import { useState} from "react";
-import { Header,TablaMarca,RegistrarMarca } from "../../index";
+import { useState } from "react";
+import {
+  Header,
+  TablaMarca,
+  RegistrarMarca,
+  ContentFiltro,
+  Btnfiltro,
+  Title,
+  v,
+  Buscador,
+  useMarcaStore,
+} from "../../index";
 
-export function MarcaTemplate({data}) {
-const [state, setState] = useState(false);
-const [dataSelect,setDataSelect]=useState([]);
-const [accion,setAccion]=useState("");
-const [openRegistro,SetopenRegistro]= useState(false);
+export function MarcaTemplate({ data }) {
+  const [state, setState] = useState(false);
+  const [dataSelect, setDataSelect] = useState([]);
+  const [accion, setAccion] = useState("");
+  const [openRegistro, SetopenRegistro] = useState(false);
+  const nuevoRegistro = () => {
+    SetopenRegistro(!openRegistro);
+    setAccion("Nuevo");
+    setDataSelect([]);
+  };
+  const { setBuscador } = useMarcaStore();
   return (
     <Container>
-      {
-        openRegistro &&
-      <RegistrarMarca dataSelect={dataSelect} accion={accion}
-      onClose={()=>SetopenRegistro(!openRegistro)}
-      />
-      }
-      <header className="header" >  
-      <Header stateConfig={{ state, setState:()=> 
-        setState(!state) }}/>
+      {openRegistro && (
+        <RegistrarMarca
+          dataSelect={dataSelect}
+          accion={accion}
+          onClose={() => SetopenRegistro(!openRegistro)}
+        />
+      )}
+      <header className="header">
+        <Header stateConfig={{ state, setState: () => setState(!state) }} />
       </header>
       <section className="section1">
-
+        <ContentFiltro>
+          <Title>Marcas</Title>
+          <Btnfiltro
+            funcion={nuevoRegistro}
+            bgcolor="#f6f3f3"
+            textcolor="#353535"
+            icono={<v.agregar />}
+          />
+        </ContentFiltro>
       </section>
       <section className="section2">
+        <Buscador setBuscador={setBuscador} />
       </section>
       <section className="main">
-        <TablaMarca data={data}/>
-
+        <TablaMarca
+          data={data}
+          SetopenRegistro={SetopenRegistro}
+          setDataSelect={setDataSelect}
+          setAccion={setAccion}
+        />
       </section>
     </Container>
   );
@@ -38,35 +67,35 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.bgtotal};
   color: ${({ theme }) => theme.text};
   display: grid;
-  padding :15px;
-grid-template-rows: 100px 100px 100px auto;
-grid-template-areas:
-  "header"
-  "section1"
-  "section2"
-  "main";
-  .header{
-  grid-area: header;
-  background-color: #006b32;
-  display: flex;
-  align-items: center;
-  }
-  .section1{
-  grid-area: section1;
-  background-color: #ffffff;
+  padding: 15px;
+  grid-template-rows: 100px 100px 100px auto;
+  grid-template-areas:
+    "header"
+    "section1"
+    "section2"
+    "main";
+  .header {
+    grid-area: header;
+    // background-color: #006b32;
     display: flex;
-  align-items: center;
+    align-items: center;
   }
-  .section2{
-  grid-area: section2;
-  background-color: #000000;
+  .section1 {
+    grid-area: section1;
+    // background-color: rgb(245, 38, 38);
     display: flex;
-  align-items: center;
+    align-items: center;
   }
-  .main{
-  grid-area: main;
-  background-color: #ff8900;
+  .section2 {
+    grid-area: section2;
+    // background-color: #000000;
     display: flex;
-  
+    align-items: center;
+    justify-content: end;
+  }
+  .main {
+    grid-area: main;
+    // background-color: #ff8900;
+    display: flex;
   }
 `;

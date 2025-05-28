@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import { AccionTabla, v } from "../../index";
+import { IconAccionesTabla, v } from "../../index";
 export function AccionesTabla({ funcionEditar, funcionEliminar }) {
   return (
     <Container>
-      <AccionTabla
+      <IconAccionesTabla
         funcion={funcionEditar}
         color="#7d7d7d"
         fontSize="20px"
         icono={<v.iconeditarTabla />}
       />
-      <AccionTabla
+      <IconAccionesTabla
         funcion={funcionEliminar}
         color="#f76e8e"
         fontSize="20px"

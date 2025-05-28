@@ -7,19 +7,38 @@ import {
   getSortedRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { AccionesTabla,useMarcaStore,v } from "../../../index";
+import { AccionesTabla, useMarcaStore, v } from "../../../index";
 import Swal from "sweetalert2";
+import { FaArrowsAltV } from "react-icons/fa";
 
-export function TablaMarca({ data }) {
-    const { eliminarMarca } = useMarcaStore();
-  const editar = () => {};
+export function TablaMarca({
+  data,
+  SetopenRegistro,
+  setDataSelect,
+  setAccion,
+}) {
+  const { eliminarMarca } = useMarcaStore();
+  const editar = (data) => {
+    if (data.descripcion === "Generica") {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No puedes editar ya que es valor por defecto",
+      });
+      return;
+    }
+    SetopenRegistro(true);
+    setDataSelect(data);
+    setAccion("Editar");
+  };
   const eliminar = (p) => {
-    if(p.descripcion === "Generica") {
-        Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "No puedes eliminar ya que es valor por defecto",});
-        return;
+    if (p.descripcion === "Generica") {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No puedes eliminar ya que es valor por defecto",
+      });
+      return;
     }
     Swal.fire({
       icon: "warning",
@@ -31,7 +50,7 @@ export function TablaMarca({ data }) {
       confirmButtonText: "¡Sí, eliminar!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await eliminarMarca({id:p.id})
+        await eliminarMarca({ id: p.id });
       }
     });
   };
@@ -41,19 +60,39 @@ export function TablaMarca({ data }) {
       header: "Descripcion",
       cell: (info) => <span>{info.getValue()}</span>,
     },
-{
-  accessorKey: "acciones",
-  header: "",
-  cell: (info) => (
-    <AccionesTabla
-      funcionEditar={() => editar(info.row.original)}
-      funcionEliminar={() => eliminar(info.row.original)}
-    />
-  ),
-  meta: {
-    className: "ContentCell"
-  }
-}
+    {
+      accessorKey: "acciones",
+      header: "",
+      enableSorting: false,
+      cell: (info) => (
+        <AccionesTabla
+          funcionEditar={() => editar(info.row.original)}
+          funcionEliminar={() => eliminar(info.row.original)}
+        />
+      ),
+      meta: {
+        className: "ContentCell",
+      },
+    },
+    //  {
+    //   accessorKey: "acciones",
+    //   header: "",
+    //   enableSorting: false,
+    //   cell: (info) => (
+    //     <td data-title="Acciones" className="ContentCell">
+    //       <AccionTabla
+    //         funcionEditar={() => editar(info.row.original)}
+    //         funcionEliminar={() => eliminar(info.row.original)}
+    //       />
+    //     </td>
+    //   ),
+    //   // enableColumnFilter: true,
+    //   // filterFn: (row, columnId, filterStatuses) => {
+    //   //   if (filterStatuses.length === 0) return true;
+    //   //   const status = row.getValue(columnId);
+    //   //   return filterStatuses.includes(status?.id);
+    //   // },
+    // },
   ];
   const table = useReactTable({
     data,
@@ -65,7 +104,7 @@ export function TablaMarca({ data }) {
   });
   return (
     <Container>
-      <table className="responsive-table">
+      {/* <table className="responsive-table">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -83,14 +122,62 @@ export function TablaMarca({ data }) {
           {table.getRowModel().rows.map((item) => (
             <tr key={item.id}>
               {item.getVisibleCells().map((cell) => (
-<td key={cell.id} className={cell.column.columnDef.meta?.className}>
-  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-</td>
+                <td
+                  key={cell.id}
+                  className={cell.column.columnDef.meta?.className}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
               ))}
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
+        <table className="responsive-table">
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id}>
+                    {header.column.columnDef.header}
+                    {header.column.getCanSort() && (
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        <FaArrowsAltV />
+                      </span>
+                    )}
+                    {
+                      {
+                        asc: " 🔼",
+                        desc: " 🔽",
+                      }[header.column.getIsSorted()]
+                    }
+                    <div
+                      onMouseDown={header.getResizeHandler()}
+                      onTouchStart={header.getResizeHandler()}
+                      className={`resizer ${
+                        header.column.getIsResizing() ? "isResizing" : ""
+                      }`}
+                    />
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((item) => (
+              <tr key={item.id}>
+                {item.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
     </Container>
   );
 }
@@ -104,7 +191,7 @@ const Container = styled.div`
   }
   @media (min-width: ${v.bphomer}) {
     margin: 2em auto;
-   
+    /* max-width: ${v.bphomer}; */
   }
   .responsive-table {
     width: 100%;
@@ -235,4 +322,13 @@ const Container = styled.div`
       }
     }
   }
+`;
+const Colorcontent = styled.div`
+  justify-content: center;
+  min-height: ${(props) => props.$alto};
+  width: ${(props) => props.$ancho};
+  display: flex;
+  background-color: ${(props) => props.color};
+  border-radius: 50%;
+  text-align: center;
 `;
