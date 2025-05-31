@@ -16,10 +16,10 @@ export const useMarcaStore = create((set, get) => ({
   marcaItemSelect: [],
   parametros: {},
   mostrarMarca: async (p) => {
-    const response = await MostrarMarca(p);
+    const response = await MostrarMarca(p) ?? [];
     set({ parametros: p });
     set({ datamarca: response });
-    set({ marcaItemSelect: response[0] || [] });
+    set({ marcaItemSelect: response[0]});
     return response;
   },
   selectMarca: (p) => {

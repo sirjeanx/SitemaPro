@@ -5,6 +5,7 @@ import { InputText, Btnsave, ConvertirCapitalize, useCategoriasStore, EditarCate
 import { useForm } from "react-hook-form";
 import { CirclePicker } from "react-color";
 import { useEmpresaStore } from "../../../store/EmpresaStore";
+import { useState } from "react";
 
 
 export function RegistrarCategorias({ onClose, dataSelect, accion }) {

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { v } from "../../../styles/variables";
 import styled from "styled-components";
-// import { useOperaciones } from "../../../index";
+import { useOperaciones } from "../../../index";
 export const Paginacion = ({ table }) => {
-  //   const { bgCategoria, colorCategoria } = useOperaciones();
+    const { bgCategoria, colorCategoria } = useOperaciones();
 
   return (
     <Container $bgCategoria={bgCategoria} $colorCategoria={colorCategoria}>

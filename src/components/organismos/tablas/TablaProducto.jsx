@@ -7,12 +7,12 @@ import {
   getSortedRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { AccionesTabla, v, Paginacion, useCategoriasStore } from "../../../index";
+import { AccionesTabla, useProductoStore, v, Paginacion } from "../../../index";
 import Swal from "sweetalert2";
 import { FaArrowsAltV } from "react-icons/fa";
 import { useState } from "react";
 
-export function TablaCategorias({
+export function TablaProducto({
   data,
   SetopenRegistro,
   setDataSelect,
@@ -23,9 +23,9 @@ export function TablaCategorias({
   const [datas, setData] = useState(data);
   const [columnFilters, setColumnFilters] = useState([]);
 
-  const { eliminarcategorias } = useCategoriasStore();
+  const { eliminarproductos } = useProductoStore();
   const editar = (data) => {
-    if (data.descripcion === "General") {
+    if (data.descripcion === "Generica") {
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -38,7 +38,7 @@ export function TablaCategorias({
     setAccion("Editar");
   };
   const eliminar = (p) => {
-    if (p.descripcion === "General") {
+    if (p.descripcion === "Generica") {
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -56,7 +56,7 @@ export function TablaCategorias({
       confirmButtonText: "¡Sí, eliminar!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await eliminarcategorias({ id: p.id });
+        await eliminarproductos({ id: p.id });
       }
     });
   };
@@ -67,16 +67,43 @@ export function TablaCategorias({
       cell: (info) => (
         <div data-title="Descripcion" className="ContentCell">
           <span>{info.getValue()}</span>
-         </div> 
+        </div>
       ),
     },
-        {
-      accessorKey: "color",
-      header: "Color",
+    {
+      accessorKey: "stock",
+      header: "Stock",
       cell: (info) => (
-        <div data-title="Color" className="ContentCell">
-          <Colorcontent color={info.getValue()} $alto="25px" $ancho="25px"/>
-         </div> 
+        <div data-title="Stock" className="ContentCell">
+          <span>{info.getValue()}</span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "stock_min",
+      header: "Stock Minimo",
+      cell: (info) => (
+        <div data-title="StockMin" className="ContentCell">
+          <span>{info.getValue()}</span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "precioventa",
+      header: "Precio Venta",
+      cell: (info) => (
+        <div data-title="StockMin" className="ContentCell">
+          <span>{info.getValue()}</span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "preciocompra",
+      header: "Precio Compra",
+      cell: (info) => (
+        <div data-title="StockMin" className="ContentCell">
+          <span>{info.getValue()}</span>
+        </div>
       ),
     },
     {

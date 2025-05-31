@@ -19,7 +19,7 @@ export const useCategoriasStore = create((set, get) => ({
     const response = await MostrarCategorias(p);
     set({ parametros: p });
     set({ datacategorias: response });
-    set({ categoriasItemSelect: response[0] || [] });
+    set({ categoriasItemSelect: response[0] });
     return response;
   },
   selectcategorias: (p) => {
