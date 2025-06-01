@@ -95,7 +95,5 @@ const Container = styled.div`
   }
   .main {
     grid-area: main;
-    // background-color: #ff8900;
-    display: flex;
   }
 `;

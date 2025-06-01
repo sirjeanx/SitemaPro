@@ -46,5 +46,6 @@ export const useProductoStore = create((set, get) => ({
   buscarproductos: async (p) => {
     const response = await BuscarProductos(p);
     set({ dataproductos: response });
+    return response;
   },
 }));

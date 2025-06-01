@@ -7,7 +7,13 @@ import {
   getSortedRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { AccionesTabla, useProductoStore, v, Paginacion } from "../../../index";
+import {
+  AccionesTabla,
+  useProductoStore,
+  v,
+  Paginacion,
+  Device,
+} from "../../../index";
 import Swal from "sweetalert2";
 import { FaArrowsAltV } from "react-icons/fa";
 import { useState } from "react";
@@ -80,28 +86,42 @@ export function TablaProducto({
       ),
     },
     {
-      accessorKey: "stock_min",
-      header: "Stock Minimo",
-      cell: (info) => (
-        <div data-title="StockMin" className="ContentCell">
-          <span>{info.getValue()}</span>
-        </div>
-      ),
-    },
-    {
       accessorKey: "precioventa",
-      header: "Precio Venta",
+      header: "P.Venta",
       cell: (info) => (
-        <div data-title="StockMin" className="ContentCell">
+        <div data-title="P.venta" className="ContentCell">
           <span>{info.getValue()}</span>
         </div>
       ),
     },
     {
       accessorKey: "preciocompra",
-      header: "Precio Compra",
+      header: "P.Compra",
       cell: (info) => (
-        <div data-title="StockMin" className="ContentCell">
+        <div data-title="P.compra" className="ContentCell">
+          <span>{info.getValue()}</span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "categorias",
+      header: "Catergoria",
+      cell: (info) => (
+        <div data-title="Categoria" className="ContentCell">
+          <Colorcontent
+            color={info.row.original.color}
+            className="contentCategoria"
+          >
+            {info.getValue()}
+          </Colorcontent>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "marca",
+      header: "Marca",
+      cell: (info) => (
+        <div data-title="Marca" className="ContentCell">
           <span>{info.getValue()}</span>
         </div>
       ),
@@ -347,11 +367,13 @@ const Container = styled.div`
   }
 `;
 const Colorcontent = styled.div`
-  justify-content: center;
-  min-height: ${(props) => props.$alto};
-  width: ${(props) => props.$ancho};
-  display: flex;
-  background-color: ${(props) => props.color};
-  border-radius: 50%;
+  color: ${(props) => props.color};
+  border-radius: 8px;
+  border: 1px dashed ${(props) => props.color};
   text-align: center;
+  padding: 3px;
+  width: 70%;
+  @media ${Device.tablet} {
+    width: 100%;
+  }
 `;

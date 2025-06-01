@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { CardDatosEmpresa, useEmpresaStore, v } from "../index";
 
 export function Bannerempresa() {
-  const {dataempresa,contarusersXempresas}= useEmpresaStore();
+  const {dataempresa,contadoruser}= useEmpresaStore();
   
   return (
     <>

@@ -76,26 +76,24 @@ const Container = styled.div`
     "main";
   .header {
     grid-area: header;
-    // background-color: #006b32;
+    
     display: flex;
     align-items: center;
   }
   .section1 {
     grid-area: section1;
-    // background-color: rgb(245, 38, 38);
+    
     display: flex;
     align-items: center;
   }
   .section2 {
     grid-area: section2;
-    // background-color: #000000;
+    
     display: flex;
     align-items: center;
     justify-content: end;
   }
   .main {
-    grid-area: main;
-    // background-color: #ff8900;
-    display: flex;
+    grid-area: main;  
   }
 `;

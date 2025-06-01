@@ -22,7 +22,7 @@ import { useEmpresaStore } from "../../../store/EmpresaStore";
 export function RegistrarProducto({ onClose, dataSelect, accion }) {
   const { insertarproductos, editarproductos } = useProductoStore();
   const { datamarca, selectMarca, marcaItemSelect } = useMarcaStore();
-  const { datacategorias, categoriasItemSelect, selectCategorias } =
+  const { datacategorias, categoriasItemSelect, selectcategorias } =
     useCategoriasStore();
   const { dataempresa } = useEmpresaStore();
   const [stateMarca, setStateMarca] = useState(false);
@@ -74,7 +74,7 @@ export function RegistrarProducto({ onClose, dataSelect, accion }) {
         _precioventa: parseFloat(data.precioventa),
         _preciocompra: parseFloat(data.preciocompra),
         _id_categoria: categoriasItemSelect.id,
-        _idempresa: dataempresa.id,
+        _id_empresa: dataempresa.id,
       };
 
       await insertarproductos(p);
@@ -84,7 +84,7 @@ export function RegistrarProducto({ onClose, dataSelect, accion }) {
   useEffect(() => {
     if (accion === "Editar") {
       selectMarca({ id: dataSelect.idmarca, descripcion: dataSelect.marca });
-      selectCategorias({
+      selectcategorias({
         id: dataSelect.id_categoria,
         descripcion: dataSelect.categoria,
       });
@@ -209,7 +209,7 @@ export function RegistrarProducto({ onClose, dataSelect, accion }) {
                   scroll="scroll"
                   setState={() => setStateCategoria(!stateCategoria)}
                   data={datacategorias}
-                  funcion={selectCategoria}
+                  funcion={selectcategorias}
                 />
               )}
             </ContainerSelector>

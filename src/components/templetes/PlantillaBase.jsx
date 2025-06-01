@@ -57,7 +57,6 @@ grid-template-areas:
   .main{
   grid-area: main;
   background-color: #ff8900;
-    display: flex;
   align-items: center;
   
   }

@@ -16,10 +16,7 @@ export async function InsertarProductos(p) {
 export async function MostrarProductos(p) {
  
     const { data } = await supabase
-      .from("productos")
-      .select()
-      .eq("id_empresa", p.id_empresa)
-      .order("id", { ascending: true });
+      .rpc("mostrarproductos",p)
     return data;
   
 }
@@ -66,11 +63,7 @@ export async function EliminarProductosTodas(p) {
 export async function BuscarProductos(p) {
   try {
     const { data } = await supabase
-      .from("productos")
-      .select()
-      .eq("id_empresa", p.id_empresa)
-      .ilike("descripcion","%"+ p.descripcion+"%")
-      
+      .rpc("buscarproductos",{_id_empresa:p.id_empresa,buscador:p.descripcion})
     return data;
   } catch (error) {}
 }

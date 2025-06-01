@@ -3,8 +3,8 @@ import { HomeTemplate, useEmpresaStore } from "../index";
 
 export function Home() {
   const { contarusersXempresas, dataempresa } = useEmpresaStore();
-  const {data} = useQuery({
-    queryKey: ["Contar users x empresa",{ id_empresa: dataempresa.id}],
+  const {data:contadorusers} = useQuery({
+    queryKey: ["Contar users x empresa", dataempresa.id],
     queryFn: () =>
       contarusersXempresas({ id_empresa: dataempresa.empresa?.id}),
     enabled: dataempresa?.id != null,
