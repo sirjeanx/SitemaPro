@@ -12,6 +12,7 @@ import {
   Marca,
   Categorias,
   Productos,
+  Users
 } from "../index.js";
 import { useQuery } from "@tanstack/react-query";
 
@@ -35,19 +36,22 @@ export function MyRoutes() {
   });
   if (isLoading) return <SpinnerLoader />;
   if (error) {
-    return <ErrorMolecula message={error.message} />;
+    return <Mantenimiento />;
   }
 
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route element={<ProtectedRoute user={user} redirectTo="/login" />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/configurar" element={<Configuracion />} />
-        <Route path="/configurar/marca" element={<Marca />} />
-        <Route path="/configurar/categorias" element={<Categorias />} />
-        <Route path="/configurar/productos" element={<Productos />} />
-      </Route>
-    </Routes>
+<Routes>
+  <Route path="/login" element={<Login />} />
+  
+  <Route element={<ProtectedRoute user={user} redirectTo="/login" />}>
+    <Route path="/" element={<Home />} />
+    <Route path="/configurar" element={<Configuracion />} />
+    <Route path="/configurar/marca" element={<Marca />} />
+    <Route path="/configurar/categorias" element={<Categorias />} />
+    <Route path="/configurar/productos" element={<Productos />} />
+    <Route path="/configurar/personal" element={<Users />} />
+  </Route>
+</Routes>
+
   );
 }
