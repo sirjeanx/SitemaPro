@@ -13,38 +13,45 @@ import {
   RegistrarMarca,
   RegistrarCategorias,
   useUsersStore,
-  TipoDocData
+  TipoDocData,
+  TipouserData,
+  ListaModulos,
+  usePermisosStore
 } from "../../../index";
 import { Device } from "../../../styles/breackpoints";
 import { useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 // import { CirclePicker } from "react-color";
 // import Emojipicker from "emoji-picker-react";
 import { useEmpresaStore } from "../../../store/EmpresaStore";
 
 export function RegistrarUsers({ onClose, dataSelect, accion }) {
-
-   const [typedoc, setTypedoc] = useState({ icono: "", descripcion: "dni" });
+  const [typedoc, setTypedoc] = useState({ icono: "", descripcion: "dni" });
   const { insertarproductos, editarproductos } = useProductoStore();
-  const { datamarca, selectMarca, marcaItemSelect } = useMarcaStore();
-  const{datausers,insertarusers,editarusers} = useUsersStore();
-  const { datacategorias, categoriasItemSelect, selectcategorias } =
-    useCategoriasStore();
+  const [checkboxs, setCheckboxs] = useState([]);
+const [mostrarPermisosEdit] = usePermisosStore();
+
+
+  // const { datamarca, selectMarca, marcaItemSelect } = useMarcaStore();
+  const { datausers, insertarusers, editarusers } = useUsersStore();
+  // const { datacategorias, categoriasItemSelect, selectcategorias } =
+  //   useCategoriasStore();
   const { dataempresa } = useEmpresaStore();
   const [stateMarca, setStateMarca] = useState(false);
-  // const [stateCategoria, setStateCategoria] = useState(false);
-
-
+  const [stateCategoria, setStateCategoria] = useState(false);
+  const [typeuser, setTipouser] = useState({
+    icono: "",
+    descripcion: "empleado",
+  });
   const [openRegistroMarca, SetopenRegistroMarca] = useState(false);
   const [openRegistroCategoria, SetopenRegistroCategoria] = useState(false);
   const [subaccion, setAccion] = useState("");
-  function nuevoRegistroMarca() {
-    SetopenRegistroMarca(!openRegistroMarca);
-    setAccion("Nuevo");
-  }
-  function nuevoRegistroCategoria() {
-    SetopenRegistroCategoria(!openRegistroCategoria);
-    setAccion("Nuevo");
-  }
+    const { isLoading } = useQuery({
+    queryKey: ["mostrarpermisosedit", { id_user: dataSelect.id }],
+    queryFn: () => mostrarPermisosEdit({ id_user: dataSelect.id }),
+    enabled: dataSelect.id != null,
+  });
+
   const {
     register,
     formState: { errors, isDirty },
@@ -57,14 +64,14 @@ export function RegistrarUsers({ onClose, dataSelect, accion }) {
         id: dataSelect.id,
         name: data.name,
         n_doc: data.n_doc,
-        phone:data.phone,
-        adress:data.adress,
-        state:"activo",
-        typeuser:typeuser.descripcion,
-        typedoc:typedoc.descripcion,
+        phone: data.phone,
+        adress: data.adress,
+        state: "activo",
+        typeuser: typeuser.descripcion,
+        typedoc: typedoc.descripcion,
       };
 
-      await editarproductos(p);
+      await editarusers(p, checkboxs, dataempresa.id);
 
       onClose();
     } else {
@@ -72,32 +79,35 @@ export function RegistrarUsers({ onClose, dataSelect, accion }) {
         id: dataSelect.id,
         name: data.name,
         n_doc: data.n_doc,
-        phone:data.phone,
-        adress:data.adress,
-        state:"activo",
-        typeuser:typeuser.descripcion,
-        typedoc:typedoc.descripcion,
+        phone: data.phone,
+        adress: data.adress,
+        state: "activo",
+        typeuser: typeuser.descripcion,
+        typedoc: typedoc.descripcion,
         id_empresa: dataempresa.id,
       };
-
-      await insertarproductos(p);
+          const parametrosAuth = {
+        correo: data.correo,
+        pass: data.pass,
+      };
+      await insertarusers(parametrosAuth, p, checkboxs);
       onClose();
     }
   }
   useEffect(() => {
     if (accion === "Editar") {
-      setTypedoc({icono: "", descripcion: dataSelect.typedoc})
+      setTypedoc({ icono: "", descripcion: dataSelect.typedoc });
       setTipouser({
         icono: "",
         descripcion: dataSelect.typedoc,
-      })
-      // selectMarca({ id: dataSelect.idmarca, descripcion: dataSelect.marca });
-      // selectCategoria({
-      //   id: dataSelect.id_categoria,
-      //   descripcion: dataSelect.categoria,
-      // });
+      });
+
     }
   }, []);
+  if(isLoading){
+    return <span>Cargando .....</span>
+  }
+
   return (
     <Container>
       <div className="sub-contenedor">
@@ -129,12 +139,10 @@ export function RegistrarUsers({ onClose, dataSelect, accion }) {
                 />
                 <label className="form__label">Correo</label>
 
-                {errors.correo?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
+                {errors.correo?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
-                        <article>
+            <article>
               <InputText icono={<v.icononombre />}>
                 <input
                   className="form__field"
@@ -147,12 +155,10 @@ export function RegistrarUsers({ onClose, dataSelect, accion }) {
                 />
                 <label className="form__label">Contraseña</label>
 
-                {errors.pass?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
+                {errors.pass?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
-                      <article>
+            <article>
               <InputText icono={<v.icononombre />}>
                 <input
                   className="form__field"
@@ -165,12 +171,10 @@ export function RegistrarUsers({ onClose, dataSelect, accion }) {
                 />
                 <label className="form__label">Nombre</label>
 
-                {errors.name?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
+                {errors.name?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
-           <ContainerSelector>
+            <ContainerSelector>
               <label>Tipo doc: </label>
               <Selector
                 state={stateMarca}
@@ -209,82 +213,76 @@ export function RegistrarUsers({ onClose, dataSelect, accion }) {
                 {errors.n_doc?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
-          </section>
-          <section className="seccion2">
+            <article>
+              <InputText icono={<v.iconostockminimo />}>
+                <input
+                  step="0.01"
+                  className="form__field"
+                  defaultValue={dataSelect.phone}
+                  type="text"
+                  placeholder=""
+                  {...register("phone", {
+                    required: true,
+                  })}
+                />
+                <label className="form__label">Telefono</label>
+
+                {errors.phone?.type === "required" && <p>Campo requerido</p>}
+              </InputText>
+            </article>
             <article>
               <InputText icono={<v.iconocodigobarras />}>
                 <input
                   className="form__field"
-                  defaultValue={dataSelect.codigobarras}
-                  type="number"
-                  placeholder=""
-                  {...register("codigobarras", {
-                    required: true,
-                  })}
-                />
-                <label className="form__label">Codigo de barras</label>
-
-                {errors.codigobarras?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
-              </InputText>
-            </article>
-            <article>
-              <InputText icono={<v.iconocodigointerno />}>
-                <input
-                  className="form__field"
-                  defaultValue={dataSelect.codigointerno}
+                  defaultValue={dataSelect.adress}
                   type="text"
                   placeholder=""
-                  {...register("codigointerno", {
+                  {...register("adress", {
                     required: true,
                   })}
                 />
-                <label className="form__label">Codigo interno</label>
+                <label className="form__label">Direccion</label>
 
-                {errors.codigointerno?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
+                {errors.adress?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
-            <article>
-              <InputText icono={<v.iconoprecioventa />}>
-                <input
-                  step="0.01"
-                  className="form__field"
-                  defaultValue={dataSelect.precioventa}
-                  type="number"
-                  placeholder=""
-                  {...register("precioventa", {
-                    required: true,
-                  })}
+          </section>
+          <section className="seccion2">
+            <ContainerSelector>
+              <label>Tipo: </label>
+              <Selector
+                state={stateCategoria}
+                color="#fc6027"
+                texto1="👷‍♂️"
+                texto2={typeuser.descripcion}
+                funcion={() => setStateCategoria(!stateCategoria)}
+              />
+
+              {stateCategoria && (
+                <ListaGenerica
+                  bottom="-150px"
+                  scroll="scroll"
+                  setState={() => setStateCategoria(!stateCategoria)}
+                  data={TipouserData}
+                  funcion={(p) => setTipouser(p)}
                 />
-                <label className="form__label">Precio de venta</label>
-
-                {errors.precioventa?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
-              </InputText>
-            </article>
-            <article>
-              <InputText icono={<v.iconopreciocompra />}>
-                <input
-                  step="0.01"
-                  className="form__field"
-                  defaultValue={dataSelect.preciocompra}
-                  type="number"
-                  placeholder=""
-                  {...register("preciocompra", {
-                    required: true,
-                  })}
-                />
-                <label className="form__label">Precio de compra</label>
-
-                {errors.preciocompra?.type === "required" && (
-                  <p>Campo requerido</p>
-                )}
-              </InputText>
-            </article>
+              )}
+            </ContainerSelector>
+            PERMISOS:🔑
+            <ListaModulos
+              accion={accion}
+              setCheckboxs={setCheckboxs}
+              checkboxs={checkboxs}
+              typeuser={typeuser}
+              
+            />
+            {/* {checkboxs.map((item, index) => {
+              if (item.check) {
+                return <span>{item.nombre}</span>;
+              } else {
+                return null;
+              }
+            })} */}
           </section>
           <div className="btnguardarContent">
             <Btnsave
@@ -294,20 +292,6 @@ export function RegistrarUsers({ onClose, dataSelect, accion }) {
             />
           </div>
         </form>
-        {openRegistroMarca && (
-          <RegistrarMarca
-            dataSelect={dataSelect}
-            onClose={() => SetopenRegistroMarca(!openRegistroMarca)}
-            accion={subaccion}
-          />
-        )}
-        {openRegistroCategoria && (
-          <RegistrarCategorias
-            dataSelect={dataSelect}
-            onClose={() => SetopenRegistroCategoria(!openRegistroCategoria)}
-            accion={subaccion}
-          />
-        )}
       </div>
     </Container>
   );

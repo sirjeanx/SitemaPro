@@ -84,25 +84,6 @@ export function TablaMarca({
         className: "ContentCell",
       },
     },
-    //  {
-    //   accessorKey: "acciones",
-    //   header: "",
-    //   enableSorting: false,
-    //   cell: (info) => (
-    //     <td data-title="Acciones" className="ContentCell">
-    //       <AccionTabla
-    //         funcionEditar={() => editar(info.row.original)}
-    //         funcionEliminar={() => eliminar(info.row.original)}
-    //       />
-    //     </td>
-    //   ),
-    //   // enableColumnFilter: true,
-    //   // filterFn: (row, columnId, filterStatuses) => {
-    //   //   if (filterStatuses.length === 0) return true;
-    //   //   const status = row.getValue(columnId);
-    //   //   return filterStatuses.includes(status?.id);
-    //   // },
-    // },
   ];
   const table = useReactTable({
     data,
@@ -132,35 +113,6 @@ export function TablaMarca({
 
   return (
     <Container>
-      {/* <table className="responsive-table">
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder ? null : (
-                    <span>{header.column.columnDef.header}</span>
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((item) => (
-            <tr key={item.id}>
-              {item.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  className={cell.column.columnDef.meta?.className}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
       <table className="responsive-table">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

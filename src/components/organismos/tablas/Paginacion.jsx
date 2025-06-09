@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { v } from "../../../styles/variables";
 import styled from "styled-components";
 import { useOperaciones } from "../../../index";

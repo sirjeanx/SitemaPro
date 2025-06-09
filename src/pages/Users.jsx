@@ -8,6 +8,7 @@ import {
 } from "../index";
 
 export function Users() {
+  const {mostrarModulos} = useUsersStore();
   // const { mostrarMarca, datamarca, buscarMarca } = useMarcaStore();
   const{mostraruserTodos,datausers,buscarusers}=useUsersStore();
   // const { buscador } = useMarcaStore();
@@ -17,6 +18,10 @@ export function Users() {
     queryKey: ["mostrar usuarios todos", dataempresa.id],
     queryFn: () => mostraruserTodos({ _id_empresa: dataempresa.id }),
     enabled: dataempresa.id != null,
+  });
+    const { data:datamodulos } = useQuery({
+    queryKey: ["mostrar modulos"],
+    queryFn: mostrarModulos,
   });
   //buscador
   // const { data: buscar } = useQuery({

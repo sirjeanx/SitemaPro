@@ -63,7 +63,7 @@ export const InsertAsignaciones = async (p) => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Error inserta usuario" + error.message,
+      text: "Error insertar asignacion" + error.message,
     });
   }
 };
@@ -78,20 +78,3 @@ export const InsertPermisos = async (p) => {
     });
   }
 };
-
-export async function MostrarPermisos(p) {
-  const { data } = await supabase
-    .from("permisos")
-    .select(`id, id_user,idmodulo,modulos(nombre)`)
-    .eq("id_user", p.id_user);
-  return data;
-}
-export async function EliminarPermisos(p){
-    const { data } = await supabase
-    .from("permisos")
-    .delete()
-    .eq("id_user", p.id_user);
-    if(error){
-      alert("Error al elminar", error);
-    }
-}

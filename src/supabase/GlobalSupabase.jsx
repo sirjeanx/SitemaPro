@@ -7,5 +7,12 @@ if(session!= null){
     const idAuthSupabase = user.id;
     return idAuthSupabase;
 }
-
-}
+};
+  export const MostrarModulosTodos = async (p) => {
+    const { error, data } = await supabase
+      .from("modulos")
+      .select()
+    if (data) {
+      return data;
+    }
+};

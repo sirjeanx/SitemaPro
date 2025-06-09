@@ -2,12 +2,16 @@ import { create } from "zustand";
 import {
   EliminarUsers,
   InsertUser,
+  MostrarModulos,
   MostrarUser,
   MostrarUserTodos,
+  InsertAsignaciones,
+  InsertarPermisos,
   supabase,
 } from "../index";
 
 export const useUsersStore = create((set, get) => ({
+  datamodulos:[],
   insertUserAdmin: async (p) => {
     const { data, error } = await supabase.auth.signUp({
       email: p.correo,
@@ -63,7 +67,7 @@ export const useUsersStore = create((set, get) => ({
         typeuser: p.typeuser,
         typedoc: p.typedoc,
     })
-    await InsetarAsignaciones({
+    await InsertAsignaciones({
         id_empresa:p.id_empresa,
         id_user:dataUserNew.id
     })
@@ -94,5 +98,10 @@ export const useUsersStore = create((set, get) => ({
   buscarusers: async (p) => {
     const response = await Buscarusers(p);
     set({ datausers: response });
+  },
+  mostrarModulos: async () => {
+    const response = await MostrarModulos();
+    set({ datamodulos: response })
+    return response;
   },
 }));

@@ -22,7 +22,7 @@ export const useProductoStore = create((set, get) => ({
     set({ productosItemSelect: [] });
     return response;
   },
-  selectproductos: (p) => {
+  selectProductos: (p) => {
     set({ productosItemSelect: p });
   },
   insertarproductos: async (p) => {

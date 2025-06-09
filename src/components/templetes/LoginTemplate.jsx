@@ -54,7 +54,7 @@ useEffect(() => {
           {
             state && <RegistrarAdmin setState={(setState)=>(!state)}/>
           }
-          <Titulo>Invetario PRO</Titulo>
+          <Titulo>Inventario PRO</Titulo>
           {stateInicio && (
             <TextoStateInicio>DATOS INCORRECTOS</TextoStateInicio>
           )}
