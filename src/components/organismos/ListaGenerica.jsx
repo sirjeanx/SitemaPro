@@ -6,12 +6,12 @@ export function ListaGenerica({ data, setState, funcion, scroll,bottom }) {
     setState();
   }
   return (
-    <Container scroll={scroll} $bottom={bottom}>
+    <Container $scroll={scroll} $bottom={bottom}>
       <section className="contentClose">
         <BtnCerrar funcion={setState} />
       </section>
       <section className="contentItems">
-        {data.map((item, index) => {
+        {Array.isArray(data) && data.map((item, index) => {
           return (
             <ItemContainer key={index} onClick={() => seleccionar(item)}>
               <span>💎</span>

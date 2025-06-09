@@ -33,7 +33,6 @@ export function Kardex() {
       buscarproductos({ descripcion: buscadorproductos, id_empresa: dataempresa.id }),
     enabled: dataempresa.id != null,
   });
-
   //mostrar kardex
   const { data: datakardex } = useQuery({
     queryKey: ["mostrar kardex", dataempresa.id],

@@ -65,5 +65,8 @@ export async function BuscarProductos(p) {
     const { data } = await supabase
       .rpc("buscarproductos",{_id_empresa:p.id_empresa,buscador:p.descripcion})
     return data;
-  } catch (error) {}
+  } catch (error) {
+          console.error("Error en buscarproductos RPC:", error);
+      return null;
+  }
 }

@@ -1,18 +1,13 @@
 import styled from "styled-components";
 import {Icono} from "../../index"
+import Button from '@mui/material/Button';
 export function Btnsave({ funcion, titulo, bgcolor, icono,url }) {
   return (
-    <Container type="submit" $bgcolor={bgcolor}>
+    <Container >
    
-     <Icono>{icono}</Icono>
-     
-
-      <span className="btn" onClick={funcion}>
-        <a href={url} target="_blank">
-           {titulo}
-        </a>
-       
-      </span>
+      <Button variant="contained" color="success">
+        Guardar
+      </Button>
     </Container>
   );
 }

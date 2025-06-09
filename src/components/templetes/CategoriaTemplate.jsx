@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   Header,
   ContentFiltro,
-  Btnfiltro,
+  BtnAdd,
   Title,
   v,
   Buscador,
@@ -38,7 +38,7 @@ export function CategoriaTemplate({ data }) {
       <section className="section1">
         <ContentFiltro>
           <Title>Categorias</Title>
-          <Btnfiltro
+          <BtnAdd
             funcion={nuevoRegistro}
             bgcolor="#f6f3f3"
             textcolor="#353535"

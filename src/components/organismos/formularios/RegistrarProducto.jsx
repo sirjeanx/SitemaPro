@@ -9,11 +9,11 @@ import {
   useProductoStore,
   useMarcaStore,
   ListaGenerica,
-  Btnfiltro,
   RegistrarMarca,
   RegistrarCategorias,
 } from "../../../index";
 import { Device } from "../../../styles/breackpoints";
+import { BtnAdd } from "../../moleculas/BtnAdd";
 import { useForm } from "react-hook-form";
 // import { CirclePicker } from "react-color";
 // import Emojipicker from "emoji-picker-react";
@@ -135,7 +135,7 @@ export function RegistrarProducto({ onClose, dataSelect, accion }) {
                 texto2={marcaItemSelect?.descripcion}
                 funcion={() => setStateMarca(!stateMarca)}
               />
-              <Btnfiltro
+              <BtnAdd
                 funcion={nuevoRegistroMarca}
                 bgcolor="#f6f3f3"
                 textcolor="#353535"
@@ -197,7 +197,7 @@ export function RegistrarProducto({ onClose, dataSelect, accion }) {
                 texto2={categoriasItemSelect?.descripcion}
                 funcion={() => setStateCategoria(!stateCategoria)}
               />
-              <Btnfiltro
+              <BtnAdd
                 funcion={nuevoRegistroCategoria}
                 bgcolor="#f6f3f3"
                 textcolor="#353535"

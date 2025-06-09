@@ -5,7 +5,7 @@ import {
   TablaPersonal,
   RegistrarUsers,
   ContentFiltro,
-  Btnfiltro,
+  BtnAdd,
   Title,
   v,
   Buscador,
@@ -38,7 +38,7 @@ export function UsersTemplate({ data }) {
       <section className="section1">
         <ContentFiltro>
           <Title>Personal</Title>
-          <Btnfiltro
+          <BtnAdd
             funcion={nuevoRegistro}
             bgcolor="#f6f3f3"
             textcolor="#353535"

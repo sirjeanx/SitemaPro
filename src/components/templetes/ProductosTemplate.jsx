@@ -5,12 +5,12 @@ import {
   TablaProducto,
   RegistrarProducto,
   ContentFiltro,
-  Btnfiltro,
   Title,
   v,
   Buscador,
   useProductoStore,
 } from "../../index";
+import { BtnAdd } from "../moleculas/BtnAdd";
 
 export function ProductosTemplate({ data }) {
   const [state, setState] = useState(false);
@@ -38,11 +38,9 @@ export function ProductosTemplate({ data }) {
       <section className="section1">
         <ContentFiltro>
           <Title>Productos</Title>
-          <Btnfiltro
+
+          <BtnAdd
             funcion={nuevoRegistro}
-            bgcolor="#f6f3f3"
-            textcolor="#353535"
-            icono={<v.agregar />}
           />
         </ContentFiltro>
       </section>

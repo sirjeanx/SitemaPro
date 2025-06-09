@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   Header,
   ContentFiltro,
-  Btnfiltro,
+  BtnAdd,
   RegistrarSalidaEntrada,
   Title,
   v,

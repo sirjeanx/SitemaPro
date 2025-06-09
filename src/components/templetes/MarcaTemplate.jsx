@@ -5,7 +5,7 @@ import {
   TablaMarca,
   RegistrarMarca,
   ContentFiltro,
-  Btnfiltro,
+  BtnAdd,
   Title,
   v,
   Buscador,
@@ -16,29 +16,33 @@ export function MarcaTemplate({ data }) {
   const [state, setState] = useState(false);
   const [dataSelect, setDataSelect] = useState([]);
   const [accion, setAccion] = useState("");
-  const [openRegistro, SetopenRegistro] = useState(false);
+  const [openRegistro, setOpenRegistro] = useState(false);
+
+  const { setBuscador } = useMarcaStore();
+
   const nuevoRegistro = () => {
-    SetopenRegistro(!openRegistro);
+    setOpenRegistro(true);
     setAccion("Nuevo");
     setDataSelect([]);
   };
-  const { setBuscador } = useMarcaStore();
+
   return (
     <Container>
-      {openRegistro && (
-        <RegistrarMarca
-          dataSelect={dataSelect}
-          accion={accion}
-          onClose={() => SetopenRegistro(!openRegistro)}
-        />
-      )}
+      <RegistrarMarca
+        open={openRegistro}
+        dataSelect={dataSelect}
+        accion={accion}
+        onClose={() => setOpenRegistro(false)}
+      />
+
       <header className="header">
         <Header stateConfig={{ state, setState: () => setState(!state) }} />
       </header>
+
       <section className="section1">
         <ContentFiltro>
           <Title>Marcas</Title>
-          <Btnfiltro
+          <BtnAdd
             funcion={nuevoRegistro}
             bgcolor="#f6f3f3"
             textcolor="#353535"
@@ -46,13 +50,15 @@ export function MarcaTemplate({ data }) {
           />
         </ContentFiltro>
       </section>
+
       <section className="section2">
         <Buscador setBuscador={setBuscador} />
       </section>
+
       <section className="main">
         <TablaMarca
           data={data}
-          SetopenRegistro={SetopenRegistro}
+          SetopenRegistro={setOpenRegistro}
           setDataSelect={setDataSelect}
           setAccion={setAccion}
         />

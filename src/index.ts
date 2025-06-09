@@ -7,7 +7,7 @@ export * from './components/atomos/Icono';
 export * from './components/atomos/Title';
 export * from './components/Bannerempresa';
 export * from './components/moleculas/BtnCircular';
-export * from './components/moleculas/Btnfiltro';
+export * from './components/moleculas/BtnAdd';
 export * from './components/moleculas/Btnsave';
 export * from './components/moleculas/CardDatosEmpresa';
 export * from './components/moleculas/ErrorMolecula';

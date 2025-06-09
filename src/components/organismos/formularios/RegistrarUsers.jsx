@@ -9,7 +9,7 @@ import {
   useProductoStore,
   useMarcaStore,
   ListaGenerica,
-  Btnfiltro,
+  BtnAdd,
   RegistrarMarca,
   RegistrarCategorias,
   useUsersStore,

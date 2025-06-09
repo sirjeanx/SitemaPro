@@ -7,4 +7,5 @@ import styled from "styled-components";
   justify-content:end;
   width:100%;
   gap:15px;
+  
 `;
